@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import FeatureWomen from "../../assets/images/banner.svg";
 import { Button } from "@material-tailwind/react";
 
@@ -7,7 +7,7 @@ const Herosection = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-20 px-6 lg:px-0">
       <div className="py-10">
         <h1 className="text-4xl font-bold text-gray-800 text-center md:text-left">
-          Master Your Skills with neXademy Courses
+          Master Your Skills with ne<span className="text-customBlue">X</span>ademy Courses
         </h1>
         <h2 className="text-2xl text-gray-600 mt-4">
           Learn from the best, at your own pace
