@@ -44,6 +44,14 @@ const CourseCard = () => {
                     <div className='flex items-center px-4 py-2'>
                         <span>4.4</span><Rating readOnly name="half-rating" defaultValue={4.4} precision={0.1} />(102)
                     </div>
+                    <div className="flex flex-col items-start space-y-2 p-4">
+                        <div className="flex items-center space-x-2">
+                            <span className="text-lg font-semibold ">
+                                $50
+                            </span>
+                            <span className="text-sm text-red-500 line-through">$65</span>
+                        </div>
+                    </div>
                 </div>
             </a>
         </div>

@@ -10,6 +10,9 @@ export default withMT({
       colors: {
         customBlue: '#4858B4',
       },
+      backgroundColor: {
+        btnbg: '#4252B0',
+      },
     },
   },
   plugins: [],
