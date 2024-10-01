@@ -4,7 +4,7 @@ import { Input, Button } from "@material-tailwind/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
-const LogInPage = () => {
+const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
 
@@ -22,8 +22,16 @@ const LogInPage = () => {
                 <div className="flex justify-center mb-4">
                     <img src={Logo} alt="Logo" className="h-16" />
                 </div>
-                <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Log In</h2>
+                <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Register</h2>
                 <form>
+                    <div className="mb-4">
+                        <Input
+                            type="text"
+                            label="Your Full Name"
+                            size="lg"
+                            className="w-full"
+                        />
+                    </div>
                     <div className="mb-4">
                         <Input
                             type="email"
@@ -71,16 +79,16 @@ const LogInPage = () => {
                         size="lg"
                         className="w-full rounded-full"
                     >
-                        Log In
+                        Register
                     </Button>
                 </form>
                 <p className="mt-4 text-center text-gray-600">
-                    Don't have an account?{' '}
-                    <Link to="/register" className="text-blue-500 hover:underline">Sign up</Link>
+                    Already have an account?{' '}
+                    <Link to="/login" className="text-blue-500 hover:underline">Sign in</Link>
                 </p>
             </div>
         </div>
     );
 }
 
-export default LogInPage;
+export default RegisterPage;

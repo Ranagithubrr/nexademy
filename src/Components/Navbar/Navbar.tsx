@@ -32,6 +32,7 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { IoSearchOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 
 const courseCategories = [
@@ -188,13 +189,13 @@ const NavbarWithMegaMenu = () => {
   }, []);
 
   return (
-    <Navbar  className="mx-auto px-4 py-2 shadow-none">
+    <Navbar className="mx-auto px-4 py-2 shadow-none">
       <div className="flex items-center justify-between text-blue-gray-900">
         <img src={Logo} alt="neXademy" className="w-40" />
         <div className="w-full max-w-md mx-auto hidden lg:block">
           <div className="relative">
             <div className="w-full">
-              <Input label="Search" icon={<IoSearchOutline/>} />
+              <Input label="Search" icon={<IoSearchOutline />} />
             </div>
           </div>
         </div>
@@ -202,12 +203,16 @@ const NavbarWithMegaMenu = () => {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue-gray" className='rounded-full'>
-            Log In
-          </Button>
+          <Link to="/login">
+            <Button variant="text" size="sm" color="blue-gray" className='rounded-full'>
+              Log In
+            </Button>
+          </Link>
+          <Link to="/register">
           <Button variant="gradient" size="sm" className='rounded-full'>
             Sign In
           </Button>
+          </Link>
         </div>
         <IconButton
           variant="text"
