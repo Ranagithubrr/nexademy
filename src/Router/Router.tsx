@@ -3,7 +3,7 @@ import LandingPage from "../Pages/LandingPage/LandingPage";
 import LogInPage from "../Pages/LoginPage/LogInPage";
 import RegisterPage from "../Pages/RegisterPage/Register";
 
-const router = createBrowserRouter([
+const routes = [
     {
         path: "/",
         element: <LandingPage />,
@@ -16,6 +16,6 @@ const router = createBrowserRouter([
         path: "/register",
         element: <RegisterPage />,
     },
-]);
+];
 
-export default router;
+export default routes;
