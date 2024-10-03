@@ -20,17 +20,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  Bars4Icon,
-  GlobeAmericasIcon,
-  NewspaperIcon,
-  PhoneIcon,
-  RectangleGroupIcon,
-  SquaresPlusIcon,
-  SunIcon,
-  TagIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/solid";
+
 import { IoSearchOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
@@ -87,7 +77,7 @@ function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const renderItems = courseCategories.map(
-    ({ icon, title, description }, key) => (
+    ({ title, description }, key) => (
       <a href="#" key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div>
@@ -166,14 +156,6 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4">My Courses</ListItem>
       </Typography>
       <NavListMenu />
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-medium"
-      >
-      </Typography>
     </List>
   );
 }
@@ -195,7 +177,7 @@ const NavbarWithMegaMenu = () => {
         <div className="w-full max-w-md mx-auto hidden lg:block">
           <div className="relative">
             <div className="w-full">
-              <Input label="Search" icon={<IoSearchOutline />} />
+              <Input label="Search" icon={<IoSearchOutline />} crossOrigin={undefined} />
             </div>
           </div>
         </div>
@@ -209,9 +191,9 @@ const NavbarWithMegaMenu = () => {
             </Button>
           </Link>
           <Link to="/register">
-          <Button variant="gradient" size="sm" className='rounded-full'>
-            Sign In
-          </Button>
+            <Button variant="gradient" size="sm" className='rounded-full'>
+              Sign In
+            </Button>
           </Link>
         </div>
         <IconButton
