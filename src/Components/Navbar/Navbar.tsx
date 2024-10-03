@@ -1,6 +1,5 @@
-import React from 'react'
 import { useEffect, useState } from "react";
-import Logo from '../../assets/images/logo_black.png';
+import Logo from "../../assets/images/logo_black.png";
 import {
   Navbar,
   Collapse,
@@ -20,61 +19,46 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  Bars4Icon,
-  GlobeAmericasIcon,
-  NewspaperIcon,
-  PhoneIcon,
-  RectangleGroupIcon,
-  SquaresPlusIcon,
-  SunIcon,
-  TagIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/solid";
 import { IoSearchOutline } from "react-icons/io5";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
+interface CourseCategory {
+  title: string;
+  description: string;
+}
 
-const courseCategories = [
+const courseCategories: CourseCategory[] = [
   {
     title: "Web Development",
     description: "Courses on building and maintaining websites.",
-
   },
   {
     title: "Data Science",
     description: "Learn data analysis, machine learning, and more.",
-
   },
   {
     title: "Design",
     description: "Courses on graphic design, UX/UI, and creative skills.",
-
   },
   {
     title: "Marketing",
     description: "Learn digital marketing, SEO, and social media strategies.",
-
   },
   {
     title: "Business",
     description: "Courses on entrepreneurship, management, and finance.",
-
   },
   {
     title: "Programming",
     description: "Courses on various programming languages and techniques.",
-
   },
   {
     title: "Photography",
     description: "Learn about photography techniques and equipment.",
-
   },
   {
     title: "Music",
     description: "Courses on music theory, instruments, and production.",
-
   },
   {
     title: "Personal Development",
@@ -82,33 +66,34 @@ const courseCategories = [
   },
 ];
 
+const NavListMenu: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-function NavListMenu() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const renderItems = courseCategories.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg">
-          <div>
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              className="flex items-center text-sm font-bold"
-            >
-              {title}
-            </Typography>
-            <Typography
-              variant="paragraph"
-              className="text-xs !font-medium text-blue-gray-500"
-            >
-              {description}
-            </Typography>
-          </div>
-        </MenuItem>
-      </a>
-    ),
-  );
+  const renderItems = courseCategories.map(({ title, description }, index) => (
+    <MenuItem
+      key={index}
+      className="flex items-center gap-3 rounded-lg"
+      color="blue-gray"
+    >
+      <Link
+        to={`/courses/${title.toLowerCase().replace(/ /g, "-")}`}
+        className="flex w-full"
+      >
+        <div>
+          <Typography variant="h6" className="text-sm font-bold">
+            {title}
+          </Typography>
+          <Typography
+            variant="paragraph"
+            className="text-xs !font-medium text-blue-gray-500"
+          >
+            {description}
+          </Typography>
+        </div>
+      </Link>
+    </MenuItem>
+  ));
 
   return (
     <>
@@ -124,24 +109,25 @@ function NavListMenu() {
             <ListItem
               className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
               selected={isMenuOpen || isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
               Categories
               <ChevronDownIcon
                 strokeWidth={2.5}
-                className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`hidden h-3 w-3 transition-transform lg:block ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
               />
               <ChevronDownIcon
                 strokeWidth={2.5}
-                className={`block h-3 w-3 transition-transform lg:hidden ${isMobileMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`block h-3 w-3 transition-transform lg:hidden ${
+                  isMobileMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
-          <ul className="grid grid-cols-3 gap-y-2 outline-none outline-0">
+        <MenuList>
+          <ul className="grid grid-cols-3 outline-none gap-y-2 outline-0">
             {renderItems}
           </ul>
         </MenuList>
@@ -151,48 +137,41 @@ function NavListMenu() {
       </div>
     </>
   );
-}
+};
 
-function NavList() {
+const NavList: React.FC = () => {
   return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">My Courses</ListItem>
+    <List className="p-0 mt-4 mb-6 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+      <Typography as="a" variant="small" className="font-medium">
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          My Courses
+        </ListItem>
       </Typography>
       <NavListMenu />
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-medium"
-      >
-      </Typography>
     </List>
   );
-}
+};
 
-const NavbarWithMegaMenu = () => {
-  const [openNav, setOpenNav] = useState(false);
+const NavbarWithMegaMenu: React.FC = () => {
+  const [openNav, setOpenNav] = useState<boolean>(false);
 
   useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false),
-    );
+    const handleResize = () => {
+      if (window.innerWidth >= 960) {
+        setOpenNav(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
-    <Navbar className="mx-auto px-4 py-2 shadow-none">
+    <Navbar className="px-4 py-2 mx-auto shadow-none">
       <div className="flex items-center justify-between text-blue-gray-900">
         <img src={Logo} alt="neXademy" className="w-40" />
-        <div className="w-full max-w-md mx-auto hidden lg:block">
+        <div className="hidden w-full max-w-md mx-auto lg:block">
           <div className="relative">
             <div className="w-full">
               <Input label="Search" icon={<IoSearchOutline />} />
@@ -204,14 +183,19 @@ const NavbarWithMegaMenu = () => {
         </div>
         <div className="hidden gap-2 lg:flex">
           <Link to="/login">
-            <Button variant="text" size="sm" color="blue-gray" className='rounded-full'>
+            <Button
+              variant="text"
+              size="sm"
+              color="blue-gray"
+              className="rounded-full"
+            >
               Log In
             </Button>
           </Link>
           <Link to="/register">
-          <Button variant="gradient" size="sm" className='rounded-full'>
-            Sign In
-          </Button>
+            <Button variant="gradient" size="sm" className="rounded-full">
+              Sign In
+            </Button>
           </Link>
         </div>
         <IconButton
@@ -221,25 +205,29 @@ const NavbarWithMegaMenu = () => {
           onClick={() => setOpenNav(!openNav)}
         >
           {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            <XMarkIcon className="w-6 h-6" strokeWidth={2} />
           ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            <Bars3Icon className="w-6 h-6" strokeWidth={2} />
           )}
         </IconButton>
       </div>
       <Collapse open={openNav}>
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Log In
-          </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-            Sign In
-          </Button>
+        <div className="flex items-center w-full gap-2 flex-nowrap lg:hidden">
+          <Link to="/login">
+            <Button variant="outlined" size="sm" color="blue-gray">
+              Log In
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button variant="gradient" size="sm">
+              Sign In
+            </Button>
+          </Link>
         </div>
       </Collapse>
     </Navbar>
   );
-}
+};
 
 export default NavbarWithMegaMenu;
