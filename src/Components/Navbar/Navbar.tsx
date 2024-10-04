@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect, useState } from "react";
 import Logo from '../../assets/images/logo_black.png';
 import {
@@ -23,60 +22,13 @@ import {
 
 import { IoSearchOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-
-
-const courseCategories = [
-  {
-    title: "Web Development",
-    description: "Courses on building and maintaining websites.",
-
-  },
-  {
-    title: "Data Science",
-    description: "Learn data analysis, machine learning, and more.",
-
-  },
-  {
-    title: "Design",
-    description: "Courses on graphic design, UX/UI, and creative skills.",
-
-  },
-  {
-    title: "Marketing",
-    description: "Learn digital marketing, SEO, and social media strategies.",
-
-  },
-  {
-    title: "Business",
-    description: "Courses on entrepreneurship, management, and finance.",
-
-  },
-  {
-    title: "Programming",
-    description: "Courses on various programming languages and techniques.",
-
-  },
-  {
-    title: "Photography",
-    description: "Learn about photography techniques and equipment.",
-
-  },
-  {
-    title: "Music",
-    description: "Courses on music theory, instruments, and production.",
-
-  },
-  {
-    title: "Personal Development",
-    description: "Courses on self-improvement, productivity, and wellness.",
-  },
-];
+import { COURSE_CATEGORIES } from '../../constants/index'
 
 
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const renderItems = courseCategories.map(
+  const renderItems = COURSE_CATEGORIES.map(
     ({ title, description }, key) => (
       <a href="#" key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
