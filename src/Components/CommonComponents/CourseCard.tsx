@@ -1,4 +1,4 @@
-import { Rating } from '@mui/material'
+import { Rating } from '@material-tailwind/react'
 import React from 'react'
 
 const CourseCard = () => {
@@ -42,7 +42,7 @@ const CourseCard = () => {
                         </div>
                     </div>
                     <div className='flex items-center px-4 py-2'>
-                        <span>4.4</span><Rating readOnly name="half-rating" defaultValue={4.4} precision={0.1} />(102)
+                        {/* <span>4.4</span><Rating  value={4.5}/>(102) */}
                     </div>
                     <div className="flex flex-col items-start space-y-2 p-4">
                         <div className="flex items-center space-x-2">

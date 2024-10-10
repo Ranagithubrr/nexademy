@@ -22,7 +22,8 @@ import {
 
 import { IoSearchOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-import { COURSE_CATEGORIES } from '../../constants/index'
+import { COURSE_CATEGORIES } from '../../constants/index';
+import UserAvater from './UserAvater';
 
 
 function NavListMenu() {
@@ -112,7 +113,7 @@ function NavList() {
   );
 }
 
-const NavbarWithMegaMenu = () => {
+const NavbarWithMegaMenu = ({ Dashboard }: { Dashboard: React.ReactNode }) => {
   const [openNav, setOpenNav] = useState(false);
 
   useEffect(() => {
@@ -136,18 +137,25 @@ const NavbarWithMegaMenu = () => {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="hidden gap-2 lg:flex">
-          <Link to="/login">
-            <Button variant="text" size="sm" color="blue-gray" className='rounded-full'>
-              Log In
-            </Button>
-          </Link>
-          <Link to="/register">
-            <Button variant="gradient" size="sm" className='rounded-full'>
-              Sign In
-            </Button>
-          </Link>
-        </div>
+        {
+          Dashboard ?
+
+            <div className="hidden gap-2 lg:flex">
+              <Link to="/login">
+                <Button variant="text" size="sm" color="blue-gray" className='rounded-full'>
+                  Log In
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button variant="gradient" size="sm" className='rounded-full'>
+                  Sign In
+                </Button>
+              </Link>
+            </div>
+            : <div>
+              <UserAvater />
+            </div>
+        }
         <IconButton
           variant="text"
           color="blue-gray"
