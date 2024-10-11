@@ -10,7 +10,7 @@ const LandingPage = () => {
     return (
         <>
             <div className="max-w-screen-xl mx-auto">
-                <NavbarWithMegaMenu />
+                <NavbarWithMegaMenu Dashboard={false}/>
                 <Herosection />
                 <FeaturedCourse />
                 <LatestRelease />
