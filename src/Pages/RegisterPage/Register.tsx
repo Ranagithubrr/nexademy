@@ -76,7 +76,7 @@ const RegisterPage = () => {
                                     size="lg"
                                     className="w-full"
                                 />
-                                <ErrorMessage name="email"  component="div" className="text-red-500 text-xs mt-1" />
+                                <ErrorMessage name="email" component="div" className="text-red-500 text-xs mt-1" />
                             </div>
                             <div className="relative mb-4">
                                 <Field

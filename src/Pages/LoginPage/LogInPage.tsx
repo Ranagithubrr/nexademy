@@ -12,7 +12,7 @@ const LogInPage = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleRememberMeChange = (e) => {
+    const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRememberMe(e.target.checked);
     };
 
@@ -30,6 +30,7 @@ const LogInPage = () => {
                             label="Email"
                             size="lg"
                             className="w-full"
+                            crossOrigin="anonymous"
                         />
                     </div>
                     <div className="relative">
@@ -38,6 +39,7 @@ const LogInPage = () => {
                             label="Password"
                             size="lg"
                             className="w-full"
+                            crossOrigin="anonymous"
                         />
                         <button
                             type="button"
