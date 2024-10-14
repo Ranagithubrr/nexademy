@@ -3,6 +3,8 @@ import Logo from '../../assets/images/logo_black.png';
 import { Input, Button } from "@material-tailwind/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 const LogInPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +16,13 @@ const LogInPage = () => {
 
     const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRememberMe(e.target.checked);
+    };
+    const [user, setUser] = useState(null); // State to hold user info
+    console.log('user data', user)
+
+    const handleSuccess = (credentialResponse) => {
+        const decodedUser = jwtDecode(credentialResponse.credential);;
+        setUser(decodedUser);
     };
 
     return (
@@ -80,6 +89,13 @@ const LogInPage = () => {
                     Don't have an account?{' '}
                     <Link to="/register" className="text-blue-500 hover:underline">Sign up</Link>
                 </p>
+                <p>OR</p>
+                <GoogleLogin
+                    onSuccess={handleSuccess}
+                    onError={() => {
+                        console.log('Login Failed');
+                    }}
+                />
             </div>
         </div>
     );
