@@ -1,9 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
 import LandingPage from "../Pages/LandingPage/LandingPage";
 import LogInPage from "../Pages/LoginPage/LogInPage";
 import RegisterPage from "../Pages/RegisterPage/Register";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Dashboard from '../Components/Dashboard/Dashboard'
+import ReactQuery from './../Components/ReactQuery/ReactQuery';
 
 
 const routes = [
@@ -22,7 +22,7 @@ const routes = [
     {
         path: "/dashboard",
         element: <DashboardLayout />,
-        children:[
+        children: [
             {
                 path: "",
                 element: <Dashboard />
@@ -30,6 +30,10 @@ const routes = [
             {
                 path: "settings",
                 element: <span>settings</span>
+            },
+            {
+                path: "react-query",
+                element: <ReactQuery />
             },
         ]
     },
