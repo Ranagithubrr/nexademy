@@ -22,9 +22,7 @@ const LogInPage = () => {
         setRememberMe(e.target.checked);
     };
 
-    const handleSuccess = (credentialResponse: CredentialResponse) => {
-        console.log(credentialResponse);
-        // the credential is jwt token
+    const handleSuccess = (credentialResponse: CredentialResponse) => {                
         const { credential } = credentialResponse;
         if (credential) {
             const decodedUser = jwtDecode<DecodedUser>(credential);
