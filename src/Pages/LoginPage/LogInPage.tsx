@@ -3,10 +3,14 @@ import Logo from '../../assets/images/logo_black.png';
 import { Input, Button } from "@material-tailwind/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, CredentialResponse, useGoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+import { DecodedUser } from './../../types/types';
+import { useNavigate } from 'react-router-dom'
 
 const LogInPage = () => {
+    const navigate = useNavigate();
+    const [user, setUser] = useState<DecodedUser | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
 
@@ -17,14 +21,20 @@ const LogInPage = () => {
     const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRememberMe(e.target.checked);
     };
-    const [user, setUser] = useState(null); // State to hold user info
-    console.log('user data', user)
 
-    const handleSuccess = (credentialResponse) => {
-        const decodedUser = jwtDecode(credentialResponse.credential);;
-        setUser(decodedUser);
+    const handleSuccess = (credentialResponse: CredentialResponse) => {
+        console.log(credentialResponse);
+        // the credential is jwt token
+        const { credential } = credentialResponse;
+        if (credential) {
+            const decodedUser = jwtDecode<DecodedUser>(credential);
+            setUser(decodedUser);
+            navigate('/dashboard')
+        } else {
+            console.error('No credential received');
+        }
     };
-
+    console.log(user)
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
@@ -89,13 +99,17 @@ const LogInPage = () => {
                     Don't have an account?{' '}
                     <Link to="/register" className="text-blue-500 hover:underline">Sign up</Link>
                 </p>
-                <p>OR</p>
-                <GoogleLogin
-                    onSuccess={handleSuccess}
-                    onError={() => {
-                        console.log('Login Failed');
-                    }}
-                />
+                <hr className="my-3" />
+                <p className='text-center mb-3 text-sm text-gray-600'>OR</p>
+                <div className='w-full flex items-center justify-center'>
+                    <GoogleLogin
+                        size='medium'
+                        onSuccess={handleSuccess}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                    />
+                </div>
             </div>
         </div>
     );
