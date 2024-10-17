@@ -4,6 +4,7 @@ import RegisterPage from "../Pages/RegisterPage/Register";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Dashboard from '../Components/Dashboard/Dashboard'
 import ReactQuery from './../Components/ReactQuery/ReactQuery';
+import EditProfile from './../Components/Dashboard/EditProfile/EditProfile';
 
 
 const routes = [
@@ -34,6 +35,10 @@ const routes = [
             {
                 path: "react-query",
                 element: <ReactQuery />
+            },
+            {
+                path: "edit-profile",
+                element: <EditProfile />
             },
         ]
     },
