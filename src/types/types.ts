@@ -28,9 +28,9 @@ interface Geo {
     name: string;
     username: string;
     email: string;
-    address: Address;
+    address: string;
     phone: string;
     website: string;
-    company: Company;
+    company: string;
   }
   
