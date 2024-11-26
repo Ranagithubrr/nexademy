@@ -5,7 +5,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import ReactQuery from "./../Components/ReactQuery/ReactQuery";
 import EditProfile from "./../Components/Dashboard/EditProfile/EditProfile";
-import Rtk from './../Components/Dashboard/Rtk/Rtk';
+import Rtk from '../Components/Dashboard/Rtk/Rtk';
 const routes = [
   {
     path: "/",

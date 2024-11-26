@@ -1,26 +1,28 @@
 import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { addTodo } from "../../../store/slices/TodoSlice";
+import { TodoInferface } from "../../../store/slices/TodoSlice";
 
 const Rtk = () => {
-  const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
+  const [priorityInput, setPriorityInput] = useState<"low" | "medium" | "high">(
+    "low"
+  );
+  const todos = useAppSelector((state) => state.todo);
+  const dispatch = useAppDispatch();
+  console.log(todos);
 
   const addTask = () => {
     if (task.trim()) {
-      setTasks([...tasks, { id: Date.now(), text: task, completed: false }]);
+      const newTodo: TodoInferface = {
+        text: task,
+        completed: false,
+        dueDate: "13",
+        priority: priorityInput,
+      };
+      dispatch(addTodo(newTodo));
       setTask("");
     }
-  };
-
-  const toggleComplete = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
   };
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -36,6 +38,17 @@ const Rtk = () => {
             value={task}
             onChange={(e) => setTask(e.target.value)}
           />
+          <select
+            name="priority"
+            id="1"
+            onChange={(e) =>
+              setPriorityInput(e.target.value as "low" | "medium" | "high")
+            }
+          >
+            <option value="high">High</option>
+            <option value="low">Low</option>
+            <option value="Medium">Medium</option>
+          </select>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             onClick={addTask}
@@ -44,9 +57,9 @@ const Rtk = () => {
           </button>
         </div>
         <ul className="space-y-2">
-          {tasks.map((task) => (
+          {todos?.map((task, index) => (
             <li
-              key={task.id}
+              key={index}
               className={`flex items-center justify-between p-2 rounded-lg border ${
                 task.completed ? "bg-green-100" : "bg-gray-50"
               }`}
@@ -60,6 +73,7 @@ const Rtk = () => {
               >
                 {task.text}
               </span>
+              <span>{task.priority}</span>
               <div className="flex space-x-2">
                 <button
                   className={`px-2 py-1 rounded ${
@@ -67,13 +81,13 @@ const Rtk = () => {
                       ? "bg-gray-400 text-white"
                       : "bg-green-500 text-white"
                   }`}
-                  onClick={() => toggleComplete(task.id)}
+                  // onClick={() => toggleComplete(index)}
                 >
                   {task.completed ? "Undo" : "Complete"}
                 </button>
                 <button
                   className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                  onClick={() => deleteTask(task.id)}
+                  // onClick={() => deleteTask(task.id)}
                 >
                   Delete
                 </button>
@@ -81,7 +95,7 @@ const Rtk = () => {
             </li>
           ))}
         </ul>
-        {tasks.length === 0 && (
+        {todos?.length === 0 && (
           <p className="text-gray-500 text-center mt-4">No tasks yet!</p>
         )}
       </div>

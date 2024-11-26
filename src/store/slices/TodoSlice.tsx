@@ -1,12 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const todosSlice = createSlice({
+export interface TodoInferface {
+  text: string;
+  description?: string;
+  completed: boolean;
+  dueDate: string;
+  priority: "low" | "medium" | "high";
+}
+
+const initialState: TodoInferface[] = [];
+
+export const todosSlice = createSlice({
   name: "todos",
-  initialState: [],
+  initialState,
   reducers: {
-    addTodo(state, action) {},
-    removetodo(state, action) {},
+    addTodo: (state, action: PayloadAction<TodoInferface>) => {
+      const newTodo: TodoInferface = {
+        ...action.payload,
+      };
+      state.push(newTodo);
+    },
   },
 });
 
-export { todosSlice };
+export const { addTodo } = todosSlice.actions;
+export default todosSlice.reducer;
