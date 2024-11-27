@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { addTodo } from "../../../store/slices/TodoSlice";
+import { addTodo, removeTodo } from "../../../store/slices/TodoSlice";
 import { TodoInferface } from "../../../store/slices/TodoSlice";
 
 const Rtk = () => {
@@ -24,70 +24,87 @@ const Rtk = () => {
       setTask("");
     }
   };
+  const deleteTask = (index: number) => {
+    dispatch(removeTodo(index));
+  };
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="w-full max-w-md p-4 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-4 text-gray-800">
+    <div className="min-h-screen flex items-center justify-center p-6">
+      <div className="w-full p-6 bg-white shadow-md rounded-xl border border-gray-200">
+        <h1 className="text-3xl font-bold text-center mb-6 text-gray-900">
           To-Do List
         </h1>
-        <div className="flex space-x-2 mb-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
           <input
             type="text"
-            className="flex-1 px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-3 border rounded-lg shadow-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-gray-600"
             placeholder="Add a new task..."
             value={task}
             onChange={(e) => setTask(e.target.value)}
           />
           <select
-            name="priority"
-            id="1"
+            className="w-36 px-3 py-3 border rounded-lg shadow-sm text-gray-800 outline-none focus:ring-2 focus:ring-gray-600"
             onChange={(e) =>
               setPriorityInput(e.target.value as "low" | "medium" | "high")
             }
           >
-            <option value="low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="high">High</option>
+            <option value="low">Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high">High Priority</option>
           </select>
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            className="bg-gray-900 text-white px-6 py-3 rounded-lg shadow hover:bg-gray-800 transition-colors"
             onClick={addTask}
           >
-            Add
+            Add Task
           </button>
         </div>
-        <ul className="space-y-2">
+        <ul className="space-y-4">
           {todos?.map((task, index) => (
             <li
               key={index}
-              className={`flex items-center justify-between p-2 rounded-lg border ${
-                task.completed ? "bg-green-100" : "bg-gray-50"
+              className={`flex items-center justify-between p-4 rounded-lg border shadow-sm ${
+                task.completed
+                  ? "border-gray-300"
+                  : "border-gray-200 hover:border-gray-400"
               }`}
             >
+              <div className="flex-1">
+                <p
+                  className={`text-lg font-medium ${
+                    task.completed
+                      ? "line-through text-gray-500"
+                      : "text-gray-800"
+                  }`}
+                >
+                  {task.text}
+                </p>
+                <p className="text-sm text-gray-500">{task.dueDate}</p>
+              </div>
               <span
-                className={`flex-1 ${
-                  task.completed
-                    ? "line-through text-gray-500"
-                    : "text-gray-800"
+                className={`px-3 py-1 text-sm font-semibold rounded-full ${
+                  task.priority === "high"
+                    ? "text-red-600 bg-red-100"
+                    : task.priority === "medium"
+                    ? "text-yellow-600 bg-yellow-100"
+                    : "text-green-600 bg-green-100"
                 }`}
               >
-                {task.text}
+                {task.priority}
               </span>
-              <span>{task.priority}</span>
-              <div className="flex space-x-2">
+              <div className="flex items-center gap-2 ml-4">
                 <button
-                  className={`px-2 py-1 rounded ${
+                  className={`px-4 py-2 text-sm rounded-lg shadow ${
                     task.completed
-                      ? "bg-gray-400 text-white"
-                      : "bg-green-500 text-white"
+                      ? "bg-gray-400 text-white hover:bg-gray-500"
+                      : "bg-green-500 text-white hover:bg-green-600"
                   }`}
                   // onClick={() => toggleComplete(index)}
                 >
                   {task.completed ? "Undo" : "Complete"}
                 </button>
                 <button
-                  className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                  // onClick={() => deleteTask(task.id)}
+                  className="px-4 py-2 bg-red-500 text-white text-sm rounded-lg shadow hover:bg-red-600"
+                  onClick={() => deleteTask(index)}
                 >
                   Delete
                 </button>
@@ -96,7 +113,9 @@ const Rtk = () => {
           ))}
         </ul>
         {todos?.length === 0 && (
-          <p className="text-gray-500 text-center mt-4">No tasks yet!</p>
+          <p className="text-gray-500 text-center mt-6">
+            Start by adding your first task!
+          </p>
         )}
       </div>
     </div>

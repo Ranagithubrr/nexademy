@@ -17,8 +17,11 @@ export const todosSlice = createSlice({
     addTodo: (state, action: PayloadAction<TodoInferface>) => {
       state.push(action.payload);
     },
+    removeTodo: (state, action: PayloadAction<number>) => {
+      return state.filter((_, index) => index !== action.payload);
+    },
   },
 });
 
-export const { addTodo } = todosSlice.actions;
+export const { addTodo, removeTodo } = todosSlice.actions;
 export default todosSlice.reducer;
