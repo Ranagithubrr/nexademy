@@ -8,7 +8,7 @@ const Rtk = () => {
   const [priorityInput, setPriorityInput] = useState<"low" | "medium" | "high">(
     "low"
   );
-  const todos = useAppSelector((state) => state.todo);
+  const todos = useAppSelector((state) => state.todos);
   const dispatch = useAppDispatch();
   console.log(todos);
 
@@ -45,9 +45,9 @@ const Rtk = () => {
               setPriorityInput(e.target.value as "low" | "medium" | "high")
             }
           >
-            <option value="high">High</option>
             <option value="low">Low</option>
             <option value="Medium">Medium</option>
+            <option value="high">High</option>
           </select>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"

@@ -15,10 +15,7 @@ export const todosSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action: PayloadAction<TodoInferface>) => {
-      const newTodo: TodoInferface = {
-        ...action.payload,
-      };
-      state.push(newTodo);
+      state.push(action.payload);
     },
   },
 });
