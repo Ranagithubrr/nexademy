@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { addTodo, removeTodo } from "../../../store/slices/TodoSlice";
+import {
+  addTodo,
+  removeTodo,
+  toggleTodo,
+} from "../../../store/slices/TodoSlice";
 import { TodoInferface } from "../../../store/slices/TodoSlice";
 
 const Rtk = () => {
@@ -27,11 +31,14 @@ const Rtk = () => {
   const deleteTask = (index: number) => {
     dispatch(removeTodo(index));
   };
+  const toggleComplete = (index: number) => {
+    dispatch(toggleTodo(index));
+  };
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full p-6 bg-white shadow-md rounded-xl border border-gray-200">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-900">
-          To-Do List
+          📝 To-Do List
         </h1>
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
           <input
@@ -68,7 +75,8 @@ const Rtk = () => {
                   : "border-gray-200 hover:border-gray-400"
               }`}
             >
-              <div className="flex-1">
+              <div className="flex-1 flex items-center">
+                {task.completed && <span className="mr-2">✅</span>}
                 <p
                   className={`text-lg font-medium ${
                     task.completed
@@ -78,7 +86,6 @@ const Rtk = () => {
                 >
                   {task.text}
                 </p>
-                <p className="text-sm text-gray-500">{task.dueDate}</p>
               </div>
               <span
                 className={`px-3 py-1 text-sm font-semibold rounded-full ${
@@ -98,7 +105,7 @@ const Rtk = () => {
                       ? "bg-gray-400 text-white hover:bg-gray-500"
                       : "bg-green-500 text-white hover:bg-green-600"
                   }`}
-                  // onClick={() => toggleComplete(index)}
+                  onClick={() => toggleComplete(index)}
                 >
                   {task.completed ? "Undo" : "Complete"}
                 </button>
