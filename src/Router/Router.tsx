@@ -6,6 +6,7 @@ import Dashboard from "../Components/Dashboard/Dashboard";
 import ReactQuery from "./../Components/ReactQuery/ReactQuery";
 import EditProfile from "./../Components/Dashboard/EditProfile/EditProfile";
 import Rtk from '../Components/Dashboard/Rtk/Rtk';
+import RtkQuery from './../Components/Dashboard/Rtk/RtkQuery';
 const routes = [
   {
     path: "/",
@@ -42,6 +43,10 @@ const routes = [
       {
         path: "rtk",
         element: <Rtk />,
+      },
+      {
+        path: "rtk-data-fetch",
+        element: <RtkQuery />,
       },
     ],
   },

@@ -53,3 +53,9 @@ export interface DecodedUser {
   family_name: string;
   jti: string;
 }
+export interface TodosInterface {
+  completed: boolean;
+  id: number;
+  userId: number;
+  title: string;
+}
